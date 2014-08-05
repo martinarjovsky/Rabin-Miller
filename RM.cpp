@@ -170,7 +170,6 @@ bool isprime (ll n, int rounds) { // Does 'rounds' iterations of Rabin-Miller pr
 	if (n == 2) return true;
 	if (n == 1 || n % 2 == 0) return false;
 	ll d, x, b;
-	bool flag;
 	tipo k;
 	tipo s = 0;
 	d = n - 1;
@@ -187,18 +186,13 @@ bool isprime (ll n, int rounds) { // Does 'rounds' iterations of Rabin-Miller pr
 		}
 		x = modexp(b,d,n);
 		if ((x == 1) || (x == n -1)) continue;
-		flag = false;
 		for(k = 1; k < s; k++) {
 			x = (x*x) % n;
-			if (x == n-1) {
-				flag = true;
-				break;
-			}
-			if (k == s-1) return false;
+			if (x == n-1) break;
 			if (x == 1) return false;
 		}
+		if (k == s) return false;
 		if (s == 1 && !(x == n - 1)) return false;
-		if (flag) continue;
 	}
 	return true;
 }
